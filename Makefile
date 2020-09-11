@@ -169,6 +169,7 @@ ifeq ($(VERSION),sh)
 else
   OPT_FLAGS := -g
 endif
+OPT_FLAGS := -O2
 endif
 
 # Use a default opt flag for gcc

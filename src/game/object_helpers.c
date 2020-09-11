@@ -1371,6 +1371,7 @@ void cur_obj_move_y(f32 gravity, f32 bounciness, f32 buoyancy) {
                 o->oPosY = o->oFloorHeight;
                 o->oMoveFlags &= ~OBJ_MOVE_MASK_IN_WATER;
             } else {
+                // maybe?
                 o->oPosY = waterLevel;
                 o->oVelY = 0.0f;
                 o->oMoveFlags &= ~(OBJ_MOVE_UNDERWATER_OFF_GROUND | OBJ_MOVE_UNDERWATER_ON_GROUND);

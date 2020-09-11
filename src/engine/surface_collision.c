@@ -8,6 +8,8 @@
 #include "surface_collision.h"
 #include "surface_load.h"
 
+u32 gCurrentWaterMode = WATER_MODE_NONE;
+
 /**************************************************
  *                      WALLS                     *
  **************************************************/
@@ -594,25 +596,37 @@ f32 find_water_level(f32 x, f32 z) {
     f32 waterLevel = -11000.0f;
     s16 *p = gEnvironmentRegions;
 
-    if (p != NULL) {
-        numRegions = *p++;
-
-        for (i = 0; i < numRegions; i++) {
-            val = *p++;
-            loX = *p++;
-            loZ = *p++;
-            hiX = *p++;
-            hiZ = *p++;
-
-            // If the location is within a water box and it is a water box.
-            // Water is less than 50 val only, while above is gas and such.
-            if (loX < x && x < hiX && loZ < z && z < hiZ && val < 50) {
-                // Set the water height. Since this breaks, only return the first height.
-                waterLevel = *p;
+    switch (gCurrentWaterMode) {
+        case WATER_MODE_NORMAL:
+            if (p == NULL) {
                 break;
             }
-            p++;
-        }
+
+            // default water behavior
+            numRegions = *p++;
+            for (i = 0; i < numRegions; i++) {
+                val = *p++;
+                loX = *p++;
+                loZ = *p++;
+                hiX = *p++;
+                hiZ = *p++;
+
+                // If the location is within a water box and it is a water box.
+                // Water is less than 50 val only, while above is gas and such.
+                if (loX < x && x < hiX && loZ < z && z < hiZ && val < 50) {
+                    // Set the water height. Since this breaks, only return the first height.
+                    waterLevel = *p;
+                    break;
+                }
+                p++;
+            }
+            break;
+        case WATER_MODE_FULL:
+            waterLevel = 20000.0f;
+            break;
+        case WATER_MODE_NONE:
+        default:
+            break;
     }
 
     return waterLevel;
