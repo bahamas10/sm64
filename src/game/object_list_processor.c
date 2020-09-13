@@ -271,21 +271,11 @@ void bhv_mario_update(void) {
     u32 val4 = get_dialog_id() >= 0;
     u32 intangible = (gMarioState->action & ACT_FLAG_INTANGIBLE) != 0;
 
+    // Check if L button pressed
     if (!intangible && !val4 && !gWarpTransition.isActive && sDelayedWarpOp == WARP_OP_NONE
         && (gPlayer1Controller->buttonPressed & L_TRIG)) {
 
-        switch (gCurrentWaterMode) {
-            case WATER_MODE_FULL:
-                gCurrentWaterMode = WATER_MODE_NONE;
-                gMarioStates[0].waterLevel = -11000.0f;
-                break;
-            case WATER_MODE_NONE:
-                gCurrentWaterMode = WATER_MODE_FULL;
-                gMarioStates[0].waterLevel = 20000.0f;
-                break;
-            default:
-                break;
-        }
+        gLevelIsFlooded = !gLevelIsFlooded;
     }
 
     particleFlags = execute_mario_action(gCurrentObject);

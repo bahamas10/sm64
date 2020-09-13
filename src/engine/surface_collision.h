@@ -8,11 +8,7 @@
 #define LEVEL_BOUNDARY_MAX 0x2000
 #define CELL_SIZE          0x400
 
-#define WATER_MODE_NORMAL 0
-#define WATER_MODE_NONE 1
-#define WATER_MODE_FULL 2
-
-extern u32 gCurrentWaterMode;
+extern u32 gLevelIsFlooded;
 
 struct WallCollisionData
 {

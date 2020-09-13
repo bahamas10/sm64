@@ -7,8 +7,9 @@
 #include "game/object_list_processor.h"
 #include "surface_collision.h"
 #include "surface_load.h"
+#include "../../config.h"
 
-u32 gCurrentWaterMode = WATER_MODE_NONE;
+u32 gLevelIsFlooded = FALSE;
 
 /**************************************************
  *                      WALLS                     *
@@ -593,41 +594,8 @@ f32 find_water_level(f32 x, f32 z) {
     s32 numRegions;
     s16 val;
     f32 loX, hiX, loZ, hiZ;
-    f32 waterLevel = -11000.0f;
-    s16 *p = gEnvironmentRegions;
 
-    switch (gCurrentWaterMode) {
-        case WATER_MODE_NORMAL:
-            if (p == NULL) {
-                break;
-            }
-
-            // default water behavior
-            numRegions = *p++;
-            for (i = 0; i < numRegions; i++) {
-                val = *p++;
-                loX = *p++;
-                loZ = *p++;
-                hiX = *p++;
-                hiZ = *p++;
-
-                // If the location is within a water box and it is a water box.
-                // Water is less than 50 val only, while above is gas and such.
-                if (loX < x && x < hiX && loZ < z && z < hiZ && val < 50) {
-                    // Set the water height. Since this breaks, only return the first height.
-                    waterLevel = *p;
-                    break;
-                }
-                p++;
-            }
-            break;
-        case WATER_MODE_FULL:
-            waterLevel = 20000.0f;
-            break;
-        case WATER_MODE_NONE:
-        default:
-            break;
-    }
+    f32 waterLevel = gLevelIsFlooded ? 20000.0f : -11000.0f;
 
     return waterLevel;
 }

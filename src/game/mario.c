@@ -1180,9 +1180,8 @@ s32 set_water_plunge_action(struct MarioState *m) {
     m->forwardVel = m->forwardVel / 4.0f;
     m->vel[1] = m->vel[1] / 2.0f;
 
-    if (gCurrentWaterMode == WATER_MODE_NORMAL) {
-        m->pos[1] = m->waterLevel - 100;
-    }
+    // don't move mario to the top of the water when plunged
+    // m->pos[1] = m->waterLevel - 100;
 
     m->faceAngle[2] = 0;
 
@@ -1471,7 +1470,7 @@ void update_mario_health(struct MarioState *m) {
                 if ((m->action & ACT_FLAG_SWIMMING) && ((m->action & ACT_FLAG_INTANGIBLE) == 0)) {
                     terrainIsSnow = (m->area->terrainType & TERRAIN_MASK) == TERRAIN_SNOW;
 
-                    if (gCurrentWaterMode == WATER_MODE_NORMAL) {
+                    if (WATER_DAMAGE) {
                         // When Mario is near the water surface, recover health (unless in snow),
                         // when in snow terrains lose 3 health.
                         // If using the debug level select, do not lose any HP to water.
@@ -1892,7 +1891,7 @@ void init_mario_from_save_file(void) {
 
     gMarioState->numCoins = 0;
     gMarioState->numStars =
-       save_file_get_total_star_count(gCurrSaveFileNum - 1, COURSE_MIN - 1, COURSE_MAX - 1);
+        save_file_get_total_star_count(gCurrSaveFileNum - 1, COURSE_MIN - 1, COURSE_MAX - 1);
     gMarioState->numKeys = 0;
 
     gMarioState->numLives = 4;
