@@ -34,6 +34,9 @@
 #include "sound_init.h"
 #include "thread6.h"
 
+#include "ingame_menu.h"
+#include "../../config.h"
+
 u32 unused80339F10;
 s8 filler80339F1C[20];
 

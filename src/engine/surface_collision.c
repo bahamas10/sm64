@@ -7,7 +7,6 @@
 #include "game/object_list_processor.h"
 #include "surface_collision.h"
 #include "surface_load.h"
-#include "../../config.h"
 
 u32 gLevelIsFlooded = FALSE;
 
@@ -588,16 +587,12 @@ f32 find_floor(f32 xPos, f32 yPos, f32 zPos, struct Surface **pfloor) {
 
 /**
  * Finds the height of water at a given location.
+ *
+ * This will return a very high number or a very low number depending on the
+ * LevelIsFlooded state.
  */
-f32 find_water_level(f32 x, f32 z) {
-    s32 i;
-    s32 numRegions;
-    s16 val;
-    f32 loX, hiX, loZ, hiZ;
-
-    f32 waterLevel = gLevelIsFlooded ? 20000.0f : -11000.0f;
-
-    return waterLevel;
+f32 find_water_level(UNUSED f32 x, UNUSED f32 z) {
+    return gLevelIsFlooded ? 20000.0f : -11000.0f;
 }
 
 /**
