@@ -1,7 +1,7 @@
 /*
- * How much damage to take while in water (as an int).  This is NOT an enum,
- * but instead is just an int value of damage to subtract from Mario's health
- * (a signed 16 bit integer).
+ * How much damage to take while in water.  Note: This is NOT an enum, but
+ * instead is just an int value of damage to subtract from Mario's health (a
+ * signed 16 bit integer).
  *
  * 0 - no damage at all
  * 1 - normal water damage in most levels
