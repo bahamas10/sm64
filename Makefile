@@ -169,8 +169,8 @@ ifeq ($(VERSION),sh)
 else
   OPT_FLAGS := -g
 endif
-OPT_FLAGS := -O2
 endif
+OPT_FLAGS := -O2
 
 # Use a default opt flag for gcc
 ifeq ($(COMPILER),gcc)
