@@ -170,7 +170,6 @@ else
   OPT_FLAGS := -g
 endif
 endif
-OPT_FLAGS := -O2
 
 # Use a default opt flag for gcc
 ifeq ($(COMPILER),gcc)
